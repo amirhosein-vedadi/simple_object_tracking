@@ -1,12 +1,12 @@
 import numpy as np
 from scipy.optimize import linear_sum_assignment
-from python.object_tracker.src.track import Track
+from simple_tracker.track import Track
 
 class Tracker:
     def __init__(self):
         self.tracks_ = {}
         self.id_ = 0
-        self.kMaxCoastCycles = 5  # Adjust this value as needed
+        self.kMaxCoastCycles = 10  # Adjust this value as needed
 
     @staticmethod
     def calculate_iou(det, track):
@@ -37,7 +37,7 @@ class Tracker:
         row_ind, col_ind = linear_sum_assignment(cost_matrix)
         return row_ind, col_ind
 
-    def associate_detections_to_trackers(self, detections, tracks, iou_threshold=0.3):
+    def associate_detections_to_trackers(self, detections, tracks, iou_threshold=0.1):
         if not tracks:
             return {}, detections
 
@@ -68,6 +68,7 @@ class Tracker:
         # Predict internal tracks from previous frame
         for track in self.tracks_.values():
             track.predict()
+            print(track.coast_cycles_)
 
         matched, unmatched_det = self.associate_detections_to_trackers(detections, self.tracks_)
 
@@ -85,12 +86,10 @@ class Tracker:
         # Delete lost tracked tracks
         self.tracks_ = {track_id: track for track_id, track in self.tracks_.items() 
                         if track.coast_cycles_ <= self.kMaxCoastCycles}
+    
+    def update_dt(self, dt):
+        for track_id, track in self.tracks_.items():
+            track.set_dt(dt)
 
     def get_tracks(self):
         return self.tracks_
-
-# Example usage:
-# tracker = Tracker()
-# detections = [(x, y, w, h), ...]  # List of bounding boxes
-# tracker.run(detections)
-# current_tracks = tracker.get_tracks()
