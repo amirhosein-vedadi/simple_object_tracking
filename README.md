@@ -1,12 +1,11 @@
 # Simple Object Tracker in Python
 The **Simple Object Tracker** is a Python project that utilizes Kalman Filter for tracking detected objects in video streams.
-<video src="data/videos/output.mp4" width="640" height="480" controls></video>
+<video src="./data/videos/output.mp4" width="640" height="480" controls></video>
 
 ## Installation
 
 To install the Simple Object Tracker, follow these steps:
 
-1. Clone the repository:
    ```bash
    git clone https://github.com/amirhosein-vedadi/simple_object_tracking.git
    
