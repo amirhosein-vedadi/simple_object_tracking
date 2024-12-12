@@ -6,7 +6,7 @@ class Track:
         # Initialize Kalman Filter with 8 states and 4 observations
         self.kf_ = KalmanFilter(8, 4)
 
-        self.dt = 1.0 / 200  # Assuming 25 fps
+        self.dt = 1.0 / 200  # Assuming 200 fps
         
         self.kf_.F[0:4, 0:4] = np.array([[1, 0, 0, 0],
                                           [0, 1, 0, 0],
@@ -26,9 +26,9 @@ class Track:
         self.kf_.H[0:4, 0:4] = np.eye(4)
 
         # Process noise covariance Q - Increase these values to trust measurements more
-        self.kf_.Q[0:4, 0:4] = np.eye(4) * 5.0   # Lower process noise for position states
+        self.kf_.Q[0:4, 0:4] = np.eye(4) * 5.0
         for i in range(4):
-            self.kf_.Q[i + 4][i + 4] = 1.0         # Lower process noise for velocity states
+            self.kf_.Q[i + 4][i + 4] = 1.0
             
         # Measurement noise covariance R - Decrease these values to trust measurements more
         self.kf_.R[0:2, 0:2] = np.eye(2) * 1.0   # Lower measurement noise for position
@@ -61,13 +61,17 @@ class Track:
         
     def update(self, bbox):
         """ Update the tracker with a new bounding box. """
-        
+        if bbox is None:
+            return  # Exit early if there's no valid bounding box
+
         observation = self.convert_bbox_to_observation(bbox)
         
-        self.coast_cycles_ = 0
+        self.coast_cycles_ = 0  # Reset coast cycles since we have a valid detection
         self.hit_streak_ += 1
+        
         # Update Kalman filter with new observation
         self.kf_.update(observation)
+
 
     def get_state_as_bbox(self):
         """ Returns the current bounding box estimate. """

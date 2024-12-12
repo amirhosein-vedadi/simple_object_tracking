@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 from ultralytics import YOLO
-from simple_tracker.tracker import Tracker
-import time  # Import time module
+from simple_tracker import Tracker
+import time
 
 # Initialize YOLO model and Tracker
 model = YOLO("../data/weights/yolov8s.pt")
@@ -37,7 +37,7 @@ while cap.isOpened():
         display_frame = frame.copy()
 
         # Run YOLO detection on the current frame
-        results = model.predict(frame)
+        results = model.predict(frame, verbose=False)
 
         # Calculate current time and dt
         current_time = time.time()

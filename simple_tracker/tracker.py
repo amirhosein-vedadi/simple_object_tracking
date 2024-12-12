@@ -68,7 +68,6 @@ class Tracker:
         # Predict internal tracks from previous frame
         for track in self.tracks_.values():
             track.predict()
-            print(track.coast_cycles_)
 
         matched, unmatched_det = self.associate_detections_to_trackers(detections, self.tracks_)
 
