@@ -8,7 +8,13 @@ The **Simple Object Tracker** is a Python project that utilizes Kalman Filter fo
 
 ## Installation
 
-To install the Simple Object Tracker, follow these steps:
+It's better to create a separate python environment:
+  ```bash
+  conda create -n tracker python=3.12
+  conda activate tracker
+  ```
+
+Then to install the Simple Object Tracker, follow these steps:
 
    ```bash
    git clone https://github.com/amirhosein-vedadi/simple_object_tracking.git
@@ -24,5 +30,6 @@ To demonstrate how to use the Simple Object Tracker, an example script is provid
 2. Place your YOLO model weights (e.g., yolov8s.pt) in the `data/weights` directory.
 3. Run the example script:
 ```bash
-python examples/yolo_tracker.py
+cd examples
+python yolo_tracker.py
 ```

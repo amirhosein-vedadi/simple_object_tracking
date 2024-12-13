@@ -37,7 +37,7 @@ class Tracker:
         row_ind, col_ind = linear_sum_assignment(cost_matrix)
         return row_ind, col_ind
 
-    def associate_detections_to_trackers(self, detections, tracks, iou_threshold=0.1):
+    def associate_detections_to_tracks(self, detections, tracks, iou_threshold=0.1):
         if not tracks:
             return {}, detections
 
@@ -69,7 +69,7 @@ class Tracker:
         for track in self.tracks_.values():
             track.predict()
 
-        matched, unmatched_det = self.associate_detections_to_trackers(detections, self.tracks_)
+        matched, unmatched_det = self.associate_detections_to_tracks(detections, self.tracks_)
 
         # Update tracks with associated bbox
         for track_id, det in matched.items():
