@@ -5,7 +5,7 @@ from simple_tracker import Tracker
 import time
 
 # Initialize YOLO model and Tracker
-model = YOLO("../data/weights/yolov8s.pt")
+model = YOLO("../data/weights/yolov8n.pt")
 tracker = Tracker()
 
 # Open the video file

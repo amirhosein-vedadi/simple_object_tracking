@@ -26,9 +26,7 @@ Then to install the Simple Object Tracker, follow these steps:
 ## Usage
 
 To demonstrate how to use the Simple Object Tracker, an example script is provided in the examples directory. The example script initializes the YOLO model and the tracker, processes each frame of the video, displays the tracking results and saves the output video.
-1. Ensure that you have a video file (e.g., traffic.mp4) in the `data/videos` directory.
-2. Place your YOLO model weights (e.g., yolov8s.pt) in the `data/weights` directory.
-3. Run the example script:
+
 ```bash
 cd examples
 python yolo_tracker.py
